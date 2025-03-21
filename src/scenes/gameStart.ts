@@ -3,11 +3,17 @@ import { Scene } from "phaser";
 export class GameStart extends Scene {
   przycisk_start: Phaser.GameObjects.Image;
   przycisk_sound: Phaser.GameObjects.Image;
+  sampleSound: any;
 
   constructor() {
     super({
       key: "GameSceneStart",
     });
+  }
+
+  //preaload audio
+  preload(): void {
+    this.load.audio("sample", "assets/audio/music.mp3");
   }
 
   create(): void {
@@ -44,6 +50,12 @@ export class GameStart extends Scene {
       //this.scene.start("GameScene1");
       console.log("new scene");
       document.body.style.cursor = "initial";
+    });
+
+    //sound add
+    this.sampleSound = this.sound.add("sample", { loop: true });
+    this.przycisk_sound.on("pointerdown", () => {
+      this.sampleSound.play();
     });
 
     //tween of button
